@@ -53,7 +53,7 @@ CREATE TABLE `blog_articles` (
   `sort` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
   `assort_id` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '文章分类id',
   `contents` text COMMENT '文章内容',
-  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否删除 0-正常 1-删除',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除 0-正常 1-删除',
   `is_comment` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否评论 0-允许 1-禁止',
   `is_recommend` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否推荐 0-不推荐 1-推荐',
   `created_at` timestamp DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -76,7 +76,7 @@ CREATE TABLE `blog_article_assorts` (
   `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `title` varchar(100) NOT NULL DEFAULT '' COMMENT '文章分类名称',
   `sort` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '排序,数值越小越靠前',
-  `status`  tinyint(1) NOT NULL  DEFAULT '1' COMMENT '是否显示 0-正常 1-删除',
+  `status`  tinyint(1) NOT NULL  DEFAULT '0' COMMENT '是否显示 0-正常 1-删除',
   `created_at` timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)

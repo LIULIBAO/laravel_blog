@@ -40,13 +40,13 @@ abstract class BaseRepository
     }
 
     /**
-     * Specify Model class name
-     *
+     * 定义model 类名
      * @return mixed
      */
     public abstract function model();
 
     /**
+     * 获取所有数据
      * @param array $columns
      * @return mixed
      */
@@ -56,6 +56,7 @@ abstract class BaseRepository
     }
 
     /**
+     * 获取model中的关联关系
      * @param array $relations
      * @return $this
      */
@@ -80,6 +81,7 @@ abstract class BaseRepository
     }
 
     /**
+     * 分页
      * @param int $perPage
      * @param array $columns
      * @return mixed
@@ -90,11 +92,16 @@ abstract class BaseRepository
     }
 
     /**
+     * 单条数据的保存
      * @param array $data
      * @return mixed
+     * @throws RepositoryException
      */
     public function create(array $data)
     {
+        if(count($data, 1) !== count($data))
+            throw new RepositoryException('create method is support single insertion only');
+
         return $this->model->create($data);
     }
 
@@ -112,32 +119,21 @@ abstract class BaseRepository
         return $this->model->save();
     }
 
-//    /**
-//     * @param array $data
-//     * @param $id
-//     * @param string $attribute
-//     * @return mixed
-//     */
-//    public function update(array $data, $id, $attribute = "id")
-//    {
-//        return $this->model->where($attribute, '=', $id)->update($data);
-//    }
-
     /**
-     * @param  array $data
-     * @param  $id
+     * 更新
+     * @param array $data
+     * @param $id
+     * @param string $attribute
      * @return mixed
      */
-    public function updateRich(array $data, $id)
+    public function update(array $data, $id, $attribute = "id")
     {
-        if (!($model = $this->model->find($id))) {
-            return false;
-        }
-
-        return $model->fill($data)->save();
+        return $this->model->where($attribute, '=', $id)->update($data);
     }
 
+
     /**
+     * 根据id删除
      * @param $id
      * @return mixed
      */
@@ -146,7 +142,9 @@ abstract class BaseRepository
         return $this->model->destroy($id);
     }
 
+
     /**
+     * 更新id 获取数据
      * @param $id
      * @param array $columns
      * @return mixed
@@ -157,6 +155,7 @@ abstract class BaseRepository
     }
 
     /**
+     * 根据字段 获取单条数据
      * @param $attribute
      * @param $value
      * @param array $columns
@@ -168,6 +167,7 @@ abstract class BaseRepository
     }
 
     /**
+     * 根据字段 获取所有数据
      * @param $attribute
      * @param $value
      * @param array $columns
@@ -179,6 +179,7 @@ abstract class BaseRepository
     }
 
     /**
+     * 根据条件 获取所有数据中的某些字段
      * @param array $where
      * @param array $columns
      * @param bool $or
@@ -213,10 +214,13 @@ abstract class BaseRepository
                     : $model->orWhere($field, '=', $value);
             }
         }
+
         return $model->get($columns);
     }
 
+
     /**
+     * 创建Model
      * @return Model
      */
     public function makeModel()
@@ -225,6 +229,7 @@ abstract class BaseRepository
     }
 
     /**
+     * 实例化Model
      * @param $eloquentModel
      * @return Model
      * @throws RepositoryException

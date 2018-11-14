@@ -91,7 +91,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{url('article/edit')}}" class="nav-link">
+                            <a href="{{url('assort/index')}}" class="nav-link">
                                 <i class="fa fa-circle-o nav-icon"></i>
                                 <p>文章类型</p>
                             </a>

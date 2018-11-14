@@ -28,7 +28,6 @@ class ArticleController extends BaseController
     {
         $page_title = '文章列表';
         $list = $this->repositoryEloquent->findAll();
-//        dd($list);
         return view('admin.article.index', compact('page_title', 'list'));
     }
 
